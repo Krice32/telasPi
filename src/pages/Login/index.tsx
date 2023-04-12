@@ -6,10 +6,15 @@ import logoIMG from '../../assets/logoXgames.png';
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const onSubmit = async () => {
+    
+  }
+
   return (
     <div className="container-login">
       <div className="wrap-login">
-        <form className="login-form">
+        <form className="login-form" onSubmit={onSubmit}>
           <span className="login-form-title">Bem-Vindo!</span>
           <span className="login-form-title">
             <img src={logoIMG} alt="Logo Xgames" />

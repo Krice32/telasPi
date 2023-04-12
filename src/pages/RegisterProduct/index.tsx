@@ -8,13 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface FormData {
-  // name: string;
-  // cpf: number;
-  // password: string;
-  // confirmPassword?: string;
-  // userGroup: number;
-  // email: string;
-
   nameProduct: string;
   id: number;
   quantity: number;
@@ -122,35 +115,6 @@ export const RegisterProduct = () => {
             {errors.status && <p className={styles.errorMessage}>{errors.status.message}</p>}
           </div>
         </div>
-
-        {/* <div className={styles.inputContainer}>
-          <div>
-            <label>
-              Senha*
-              <input
-                type="text"
-                {...register('password')}
-                placeholder="Senha"
-                className={errors.password ? styles.error : ''}
-              />
-            </label>
-            {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
-          </div>
-          <div>
-            <label>
-              Confirmar senha*
-              <input
-                type="text"
-                {...register('confirmPassword')}
-                placeholder="Confirmar senha"
-                className={errors.confirmPassword ? styles.error : ''}
-              />
-            </label>
-            {errors.confirmPassword && (
-              <p className={styles.errorMessage}>{errors.confirmPassword.message}</p>
-            )}
-          </div>
-        </div> */}
 
         <button type="submit">Cadastrar</button>
       </div>
