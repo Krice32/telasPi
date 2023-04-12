@@ -8,25 +8,28 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface FormData {
-  name: string;
-  cpf: number;
-  password: string;
-  confirmPassword?: string;
-  userGroup: number;
-  email: string;
+  // name: string;
+  // cpf: number;
+  // password: string;
+  // confirmPassword?: string;
+  // userGroup: number;
+  // email: string;
+
+  nameProduct: string;
+  id: number;
+  quantity: number;
+  value:string;
+  status: string
 }
 
-export const Register = () => {
+export const RegisterProduct = () => {
   const schema = yup.object().shape({
-    email: yup.string().email('E-mail inválido').required('Email é obrigatório'),
-    password: yup.string().required('Senha é obrigatório'),
-    name: yup.string().required('Nome é obrigatório'),
-    confirmPassword: yup
-      .string()
-      .required('Confirmar senha é obrigatório')
-      .oneOf([yup.ref('password')], 'As senhas não coincidem.'),
-    userGroup: yup.number().positive('Perfil é obrigatório'),
-    cpf: yup.string().required('CPF é obrigatório'),
+    id: yup.string().required('Id é obrigatório'),
+    nameProduct: yup.string().required('Nome do Produto é obrigatório'),
+    // quantity: yup.number().email('E-mail inválido').required('Email é obrigatório'),
+    value: yup.string().required('Preço é obrigatório'),
+    quantity: yup.number().required('Quantidade é obrigatório'),
+    status: yup.string().required('Status é obrigatório'),
   });
 
   const {
@@ -38,7 +41,7 @@ export const Register = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    delete data.confirmPassword;
+    // delete data.confirmPassword;
 
     try {
       await axios.post('https://jersey-market-api-production.up.railway.app/user/register', data);
@@ -58,70 +61,69 @@ export const Register = () => {
       <ToastContainer />
 
       <div className={styles.formContent}>
-        <h1>Cadastrar novo funcionário</h1>
+        <h1>Cadastrar novo Produto</h1>
         <div className={styles.inputContainer}>
           <div>
             <label>
               Nome*
               <input
                 type="text"
-                {...register('name')}
-                placeholder="Nome"
-                className={errors.name ? styles.error : ''}
+                {...register('nameProduct')}
+                placeholder="Nome do Produto"
+                className={errors.nameProduct ? styles.error : ''}
               />
             </label>
-            {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
+            {errors.nameProduct && <p className={styles.errorMessage}>{errors.nameProduct.message}</p>}
           </div>
           <div>
             <label>
-              Email*
+              Quantidade*
               <input
-                type="text"
-                {...register('email')}
-                placeholder="Email*"
-                className={errors.email ? styles.error : ''}
+                type="number"
+                {...register('quantity')}
+                placeholder="Quantidade*"
+                className={errors.quantity ? styles.error : ''}
               />
             </label>
-            {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+            {errors.quantity && <p className={styles.errorMessage}>{errors.quantity.message}</p>}
           </div>
         </div>
 
         <div className={styles.inputContainer}>
           <div>
             <label>
-              CPF*
+              Preço*
               <ReactInputMask
                 // mask options
-                mask={'999.999.999-99'}
+                mask={'999.999.99'}
                 alwaysShowMask={false}
                 maskPlaceholder=""
                 // input options
-                type={'text'}
-                placeholder="CPF*"
+                type={'string'}
+                placeholder="Preço*"
                 // react hook form register
-                {...register('cpf', { required: true })}
-                className={errors.cpf ? styles.error : ''}
+                {...register('value', { required: true })}
+                className={errors.value ? styles.error : ''}
               />
             </label>
-            {errors.cpf && <p className={styles.errorMessage}>{errors.cpf.message}</p>}
+            {errors.value && <p className={styles.errorMessage}>{errors.value.message}</p>}
           </div>
           <div>
             <label>
-              Perfil*
-              <select {...register('userGroup')} className={errors.userGroup ? styles.error : ''}>
+              Status*
+              <select {...register('status')} className={errors.status ? styles.error : ''}>
                 <option value="0" disabled selected>
-                  Selecionar perfil
+                  Selecionar status
                 </option>
-                <option value="1">Admin</option>
-                <option value="2">Estoquista</option>
-                <option value="3">Cliente</option>
+                <option value="1">Ativo</option>
+                <option value="2">Inativo</option>
               </select>
             </label>
-            {errors.userGroup && <p className={styles.errorMessage}>{errors.userGroup.message}</p>}
+            {errors.status && <p className={styles.errorMessage}>{errors.status.message}</p>}
           </div>
         </div>
 
-        <div className={styles.inputContainer}>
+        {/* <div className={styles.inputContainer}>
           <div>
             <label>
               Senha*
@@ -148,7 +150,7 @@ export const Register = () => {
               <p className={styles.errorMessage}>{errors.confirmPassword.message}</p>
             )}
           </div>
-        </div>
+        </div> */}
 
         <button type="submit">Cadastrar</button>
       </div>
